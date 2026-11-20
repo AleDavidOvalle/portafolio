@@ -1,0 +1,341 @@
+@let c = t();
+<a class="skip" href="#main">{{ lang() === 'es' ? 'Saltar al contenido' : 'Skip to content' }}</a>
+
+<!-- ============ NAV ============ -->
+<header class="nav" [class.scrolled]="scrolled()" [class.open]="menuOpen()">
+  <div class="nav-in">
+    <a class="logo" href="#top" (click)="go('top', $event)" aria-label="Alejandro Ovalle">Ale<span>.</span></a>
+    <nav class="nav-links" aria-label="Principal">
+      @for (id of sections; track id) {
+        <a [href]="'#' + id" [class.on]="activeSection() === id" (click)="go(id, $event)">{{ navLabel(id) }}</a>
+      }
+    </nav>
+    <div class="nav-tools">
+      <button type="button" class="search-btn" (click)="palette().open()" [attr.aria-label]="c.nav.search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7" /><path d="m20 20-3.6-3.6" /></svg>
+        <kbd>Ctrl K</kbd>
+      </button>
+      <button type="button" class="lang-btn" (click)="toggleLang()" [attr.aria-label]="c.palette.switchLang">
+        <b [class.on]="lang() === 'es'">ES</b><i>/</i><b [class.on]="lang() === 'en'">EN</b>
+      </button>
+      <button type="button" class="menu-btn" (click)="menuOpen.set(!menuOpen())" [attr.aria-expanded]="menuOpen()" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="sky" aria-hidden="true">
+      <div class="sun"></div>
+      <div class="ridge back"></div>
+      <div class="ridge"></div>
+    </div>
+    <div class="hero-in">
+      <div class="hero-copy">
+        <span class="greet">{{ c.hero.greet }}</span>
+        <h1 class="name"><span>Alejandro</span><span>Ovalle</span></h1>
+        <p class="role">{{ c.hero.role }}</p>
+        <ul class="chips">
+          @for (chip of c.hero.chips; track chip) { <li>{{ chip }}</li> }
+        </ul>
+        <div class="cta">
+          <a class="btn pri" href="#projects" (click)="go('projects', $event)">{{ c.hero.ctaProjects }}</a>
+          <a class="btn alt" [href]="cvHref()" target="_blank" rel="noopener">{{ c.hero.ctaCv }} <small>PDF</small></a>
+        </div>
+        <div class="socials">
+          <a [href]="links.github" target="_blank" rel="noopener">GitHub ↗</a>
+          <a [href]="links.linkedin" target="_blank" rel="noopener">LinkedIn ↗</a>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <svg class="stamp" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="ring" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0" /></defs>
+          <circle cx="60" cy="60" r="56" class="st-bg" />
+          <circle cx="60" cy="60" r="33" class="st-dash" />
+          <text class="st-ring"><textPath href="#ring" textLength="272" lengthAdjust="spacing">{{ c.hero.stampRing }}</textPath></text>
+          <text x="60" y="58" text-anchor="middle" class="st-big">OPEN</text>
+          <text x="60" y="76" text-anchor="middle" class="st-small">TO WORK</text>
+        </svg>
+        <figure class="duo">
+          <img src="/img/alejandro.jpg" [alt]="c.hero.photoAlt" width="820" height="884" fetchpriority="high" />
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <div class="marquee" aria-hidden="true">
+    <div class="track">
+      @for (m of marquee; track $index) { <span>{{ m }}</span><i>✦</i> }
+    </div>
+  </div>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="sec" id="about">
+    <div class="wrap">
+      <h2 class="h2">{{ c.about.title }} <em>{{ c.about.script }}</em></h2>
+      <div class="about">
+        <div class="about-text">
+          @for (p of c.about.paragraphs; track $index) { <p>{{ p }}</p> }
+        </div>
+        <dl class="facts">
+          @for (f of c.about.facts; track f.label) {
+            <div><dt>{{ f.label }}</dt><dd>{{ f.value }}</dd></div>
+          }
+        </dl>
+      </div>
+      <div class="traits">
+        <h3>{{ c.about.traitsTitle }}</h3>
+        <ul>
+          @for (tr of c.about.traits; track tr.label) {
+            <li><b>{{ tr.label }}</b><p>{{ tr.value }}</p></li>
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIENCE ============ -->
+  <section class="sec" id="experience">
+    <div class="wrap">
+      <h2 class="h2">{{ c.experience.title }} <em>{{ c.experience.script }}</em></h2>
+      <article class="job">
+        <aside class="job-side">
+          <span class="period">{{ c.experience.period }}</span>
+          <span class="live"><i></i>{{ c.experience.status }}</span>
+        </aside>
+        <div class="job-main">
+          <h3>{{ c.experience.role }}</h3>
+          <p class="org">{{ c.experience.org }} <span>· {{ c.experience.place }}</span></p>
+          <ul class="bullets">
+            @for (b of c.experience.bullets; track $index) { <li>{{ b }}</li> }
+          </ul>
+          <ul class="tags">
+            @for (s of c.experience.stack; track s) { <li>{{ s }}</li> }
+          </ul>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="sec" id="projects">
+    <div class="wrap">
+      @let f = c.projects.featured;
+      <h2 class="h2">{{ c.projects.title }} <em>{{ c.projects.script }}</em></h2>
+      <p class="lead">{{ c.projects.intro }}</p>
+
+      <article class="case">
+        <div class="case-top">
+          <div class="case-media">
+            <button type="button" class="cover" (click)="openGallery(0)">
+              <span class="browser"><i></i><i></i><i></i></span>
+              <img [src]="f.shots[0].src" [alt]="f.shots[0].caption" width="1350" height="618" loading="lazy" />
+              <span class="badge-live">{{ f.status }}</span>
+              <span class="open-gal">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1" /><path d="m3 16 5-5 4 4 3-3 6 6" /></svg>
+                {{ f.labels.gallery }} · {{ f.shots.length }}
+              </span>
+            </button>
+            <div class="thumbs">
+              @for (i of [6, 8, 9, 12]; track i) {
+                <button type="button" (click)="openGallery(i)" [attr.aria-label]="f.shots[i].caption">
+                  <img [src]="f.shots[i].src" alt="" loading="lazy" />
+                </button>
+              }
+            </div>
+            <p class="gal-note">{{ f.labels.galleryNote }}</p>
+          </div>
+          <div class="case-info">
+            <span class="eyebrow">{{ f.tag }}</span>
+            <h3>{{ f.title }}</h3>
+            <dl class="case-meta">
+              <div><dt>{{ f.labels.client }}</dt><dd>{{ f.client }}</dd></div>
+              <div><dt>{{ f.labels.role }}</dt><dd>{{ f.role }}</dd></div>
+              <div><dt>{{ f.labels.year }}</dt><dd>{{ f.year }}</dd></div>
+            </dl>
+            <div class="metrics">
+              @for (m of f.metrics; track m.label) {
+                <div><b>{{ m.value }}</b><span>{{ m.label }}</span></div>
+              }
+            </div>
+            <ul class="tags">
+              @for (s of f.tech; track s) { <li>{{ s }}</li> }
+            </ul>
+          </div>
+        </div>
+
+        <div class="modules">
+          <h4>{{ f.labels.modules }}</h4>
+          <ol>
+            @for (m of f.modules; track m.name) {
+              <li><b>{{ m.name }}</b><p>{{ m.detail }}</p></li>
+            }
+          </ol>
+        </div>
+
+        <div class="story">
+          <div><h4>{{ f.labels.problem }}</h4><p>{{ f.problem }}</p></div>
+          <div><h4>{{ f.labels.solution }}</h4><p>{{ f.solution }}</p></div>
+          <div><h4>{{ f.labels.decision }}</h4><p>{{ f.decision }}</p></div>
+          <div><h4>{{ f.labels.result }}</h4><p>{{ f.result }}</p></div>
+        </div>
+
+        <div class="arch-wrap">
+          <h4>{{ f.labels.architecture }}</h4>
+          <div class="arch" role="img" [attr.aria-label]="c.arch.browser + ' → ' + c.arch.proxy + ' → ' + c.arch.front + ' / ' + c.arch.api + ' → ' + c.arch.db + ' → ' + c.arch.backup">
+            <div class="node user">{{ c.arch.browser }}</div>
+            <div class="arrow"><span>HTTPS</span></div>
+            <div class="server">
+              <span class="server-label">{{ c.arch.server }}</span>
+              <div class="server-row">
+                <div class="node">{{ c.arch.proxy }}</div>
+                <div class="arrow"></div>
+                <div class="stack-col">
+                  <div class="node">{{ c.arch.front }}</div>
+                  <div class="node api">{{ c.arch.api }}</div>
+                </div>
+                <div class="arrow"><span>SQL</span></div>
+                <div class="node db">{{ c.arch.db }}</div>
+              </div>
+            </div>
+            <div class="arrow wide"><span>{{ c.arch.backupVia }}</span></div>
+            <div class="node backup">{{ c.arch.backup }}</div>
+          </div>
+        </div>
+      </article>
+
+      <h3 class="h3">{{ c.projects.othersTitle }}</h3>
+      <div class="others">
+        @for (p of c.projects.others; track p.title) {
+          <article class="post">
+            <div class="post-head"><span>{{ p.kind }}</span><span>{{ p.year }}</span></div>
+            <h4>{{ p.title }}</h4>
+            <p>{{ p.description }}</p>
+            <ul class="tags sm">
+              @for (s of p.tech; track s) { <li>{{ s }}</li> }
+            </ul>
+            @if (p.links.length) {
+              <div class="post-links">
+                @for (l of p.links; track l.href) {
+                  <a [href]="l.href" target="_blank" rel="noopener">{{ l.label }} ↗</a>
+                }
+              </div>
+            }
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ STACK ============ -->
+  <section class="sec" id="stack">
+    <div class="wrap">
+      <h2 class="h2">{{ c.stack.title }} <em>{{ c.stack.script }}</em></h2>
+      <div class="stack">
+        @for (g of c.stack.groups; track g.name) {
+          <div class="group">
+            <h4>{{ g.name }}</h4>
+            <ul>
+              @for (it of g.items; track it) {
+                <li [class.basic]="isBasic(it)">{{ clean(it) }}@if (isBasic(it)) {<small>{{ c.stack.basic }}</small>}</li>
+              }
+            </ul>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CREDENTIALS ============ -->
+  <section class="sec" id="credentials">
+    <div class="wrap">
+      @let cr = c.credentials;
+      <h2 class="h2">{{ cr.title }} <em>{{ cr.script }}</em></h2>
+      <div class="creds">
+        <article class="cred">
+          <span class="eyebrow">{{ cr.eduLabel }}</span>
+          <h3>{{ cr.degree }}</h3>
+          <p>{{ cr.school }}</p>
+          <div class="cred-foot"><span>{{ cr.eduPeriod }}</span><span class="pill">{{ cr.eduNote }}</span></div>
+        </article>
+        <article class="cred cert">
+          <div class="seal" aria-hidden="true"><span>GOOGLE<br />CLOUD</span></div>
+          <div>
+            <span class="eyebrow">{{ cr.certLabel }}</span>
+            <h3>{{ cr.cert }}</h3>
+            <p>{{ cr.issuer }}</p>
+            <a class="link" [href]="links.credly" target="_blank" rel="noopener">{{ cr.certCta }} ↗</a>
+          </div>
+        </article>
+        <article class="cred">
+          <span class="eyebrow">{{ cr.langLabel }}</span>
+          @for (l of cr.langs; track l.label) {
+            <div class="lang-row">
+              <div class="lang-name"><b>{{ l.label }}</b><span>{{ l.value }}</span></div>
+              <div class="cefr" [attr.aria-label]="l.label + ': ' + l.value">
+                @for (lvl of cefr; track lvl; let i = $index) {
+                  <span [class.fill]="l.value === 'B1' ? i <= 2 : true" [class.mark]="l.value === 'B1' && i === 2">{{ lvl }}</span>
+                }
+              </div>
+            </div>
+          }
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="sec" id="contact">
+    <div class="wrap">
+      @let ct = c.contact;
+      <div class="card-back">
+        <div class="cb-left">
+          <h2 class="h2">{{ ct.title }} <em>{{ ct.script }}</em></h2>
+          <p>{{ ct.text }}</p>
+          <span class="sign">Alejandro</span>
+        </div>
+        <div class="cb-right">
+          <svg class="stamp small" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="60" cy="60" r="56" class="st-bg" />
+            <circle cx="60" cy="60" r="33" class="st-dash" />
+            <text class="st-ring"><textPath href="#ring" textLength="272" lengthAdjust="spacing">BOGOTÁ · COLOMBIA · REMOTE ·</textPath></text>
+            <text x="60" y="66" text-anchor="middle" class="st-big">CO</text>
+          </svg>
+          <dl class="addr">
+            <div>
+              <dt>{{ ct.emailLabel }}</dt>
+              <dd class="email-row">
+                <a [href]="'mailto:' + email">{{ email }}</a>
+                <button type="button" class="copy" (click)="copyEmail()">{{ copied() ? ct.copied : ct.copy }}</button>
+              </dd>
+            </div>
+            <div><dt>LinkedIn</dt><dd><a [href]="links.linkedin" target="_blank" rel="noopener">in/aledavidovalle ↗</a></dd></div>
+            <div><dt>GitHub</dt><dd><a [href]="links.github" target="_blank" rel="noopener">AleDavidOvalle ↗</a></dd></div>
+            <div>
+              <dt>{{ ct.cvLabel }}</dt>
+              <dd class="cv-row">
+                <a [href]="links.cvEs" target="_blank" rel="noopener">{{ ct.cvEs }}</a>
+                <a [href]="links.cvEn" target="_blank" rel="noopener">{{ ct.cvEn }}</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span>© {{ year }} Alejandro Ovalle</span>
+    <span>{{ c.footer.built }}</span>
+    <button type="button" class="foot-k" (click)="palette().open()"><kbd>Ctrl K</kbd></button>
+  </div>
+</footer>
+
+<app-lightbox [shots]="c.projects.featured.shots" />
+<app-command-palette (picked)="onPick($event)" />
+<div class="toast" role="status" aria-live="polite" [class.show]="toast()">{{ toast() }}</div>
