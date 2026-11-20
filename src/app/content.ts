@@ -138,9 +138,9 @@ export const CONTENT: Record<Lang, Content> = {
     experience: {
       title: 'Experiencia',
       script: 'de prototipo a plataforma',
-      role: 'Desarrollador Fullstack · Práctica profesional',
+      role: 'Desarrollador Fullstack',
       org: 'Colegio Uziel Querit',
-      place: 'Valledupar, Colombia · práctica y proyecto de grado',
+      place: 'Valledupar, Colombia · proyecto de grado',
       period: '2026 – Actualidad',
       status: 'En producción',
       stack: ['Angular 20', 'NestJS 11', 'TypeORM', 'PostgreSQL', 'Playwright', 'Nginx', 'Linux'],
@@ -291,9 +291,9 @@ export const CONTENT: Record<Lang, Content> = {
     experience: {
       title: 'Experience',
       script: 'from prototype to platform',
-      role: 'Fullstack Developer · Professional practicum',
+      role: 'Fullstack Developer',
       org: 'Colegio Uziel Querit',
-      place: 'Valledupar, Colombia · practicum and degree project',
+      place: 'Valledupar, Colombia · degree project',
       period: '2026 – Present',
       status: 'In production',
       stack: ['Angular 20', 'NestJS 11', 'TypeORM', 'PostgreSQL', 'Playwright', 'Nginx', 'Linux'],
