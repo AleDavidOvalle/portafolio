@@ -124,7 +124,7 @@ export const CONTENT: Record<Lang, Content> = {
       traits: [
         { label: 'Entiendo antes de programar', value: 'Cada pedido del colegio se registró y se evaluó antes de escribir código: más de 80 solicitudes y 148 decisiones documentadas.' },
         { label: 'Pruebo lo que construyo', value: 'Más de 2.200 pruebas automatizadas y dos auditorías de seguridad, con cada hallazgo corregido y con su prueba.' },
-        { label: 'Aprendo rápido', value: 'De un prototipo de un módulo a una plataforma de cuatro en dos meses, aprendiendo en el camino lo que el proyecto pedía.' },
+        { label: 'Aprendo rápido', value: 'Nómina, inventario, PDF y Word desde plantillas, despliegue en Linux con Nginx, copias cifradas: cada necesidad nueva del colegio la aprendí y la llevé a producción.' },
         { label: 'Pienso en quien lo usa', value: 'Cada pantalla está pensada para su rol: desde la secretaría hasta el personal de aseo, que lleva el inventario desde el celular.' },
       ],
       facts: [
@@ -170,7 +170,7 @@ export const CONTENT: Record<Lang, Content> = {
           { value: '255', label: 'endpoints REST documentados' },
           { value: '77', label: 'tablas en 5 esquemas' },
           { value: '2.200+', label: 'pruebas automatizadas' },
-          { value: '333', label: 'commits en 2 meses' },
+          { value: '30', label: 'recorridos e2e por rol con Playwright' },
         ],
         labels: {
           problem: 'El problema', solution: 'La solución', decision: 'Decisiones técnicas', result: 'Resultado',
@@ -277,7 +277,7 @@ export const CONTENT: Record<Lang, Content> = {
       traits: [
         { label: 'I understand before I code', value: "Every request from the school was logged and assessed before any code was written: more than 80 change requests and 148 documented decisions." },
         { label: 'I test what I build', value: 'More than 2,200 automated tests and two security audits, with every finding fixed and covered by a test.' },
-        { label: 'I learn fast', value: 'From a one-module prototype to a four-module platform in two months, learning whatever the project needed along the way.' },
+        { label: 'I learn fast', value: 'Payroll, inventory, PDF and Word from templates, Linux deployment with Nginx, encrypted backups: every new need from the school, I learned it and shipped it to production.' },
         { label: 'I think about the user', value: 'Every screen is designed for its role: from the registrar to the cleaning staff, who track inventory on their phones.' },
       ],
       facts: [
@@ -323,7 +323,7 @@ export const CONTENT: Record<Lang, Content> = {
           { value: '255', label: 'documented REST endpoints' },
           { value: '77', label: 'tables in 5 schemas' },
           { value: '2,200+', label: 'automated tests' },
-          { value: '333', label: 'commits in 2 months' },
+          { value: '30', label: 'end-to-end role flows with Playwright' },
         ],
         labels: {
           problem: 'The problem', solution: 'The solution', decision: 'Technical decisions', result: 'Result',
